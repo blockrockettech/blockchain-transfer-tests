@@ -18,5 +18,10 @@
   "bugs": {
     "url": "https://github.com/blockrockettech/eth-transfer-tests/issues"
   },
-  "homepage": "https://github.com/blockrockettech/eth-transfer-tests#readme"
+  "homepage": "https://github.com/blockrockettech/eth-transfer-tests#readme",
+  "dependencies": {
+    "stellar-sdk": "^0.10.1",
+    "axios": "latest",
+    "lodash": "latest"
+  }
 }

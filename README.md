@@ -25,3 +25,13 @@ Simple, quick and dirty tests for gathering information on transfer blockchain a
 * Reputation / Model (usage)
 * Staking
 * Public / Private
+
+
+#### Results
+
+|#| Costs  | Throughout  | Openness  |
+|-|--------|-------------|-----------|
+|1|        |             |           |
+|2|        |             |           |
+|3|        |             |           |
+|4|        |             |           |
