@@ -3,8 +3,12 @@ pragma solidity ^0.4.24;
 import "openzeppelin-solidity/contracts/token/ERC20/StandardToken.sol";
 import "openzeppelin-solidity/contracts/token/ERC20/DetailedERC20.sol";
 
+import "./strings.sol";
+
 
 contract WakERC20Token is StandardToken, DetailedERC20 {
+
+    using strings for *;
 
     constructor(address _initialAccount, uint256 _initialBalance)
     DetailedERC20("Wakelet Token", "WAK", 18)
@@ -22,5 +26,20 @@ contract WakERC20Token is StandardToken, DetailedERC20 {
         for (uint i = 0; i < _addresses.length; i++) {
             transfer(_addresses[i], _values[i]);
         }
+    }
+
+    function split(string str) constant returns (string, string) {
+        bytes memory strBytes = bytes(str);
+
+        bytes memory addressRes = new bytes(42);
+        for(uint i = 0; i < 42; i++) {
+            addressRes[i] = strBytes[i];
+        }
+        
+        return (string(addressRes), "sss");
+    }
+
+    function convert(uint256 n) returns (bytes32) {
+        return bytes32(n);
     }
 }

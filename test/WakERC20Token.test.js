@@ -182,21 +182,41 @@ contract('WakERC20Token', function (
         });
     });
 
+    describe.only('transfer string split', function () {
+        describe('when the recipient is valid', function () {
+            const to = recipient;
+
+            describe('when the sender has enough balance', function () {
+                const amount = 100;
+
+                it('test', async function () {
+                    const res = await this.token.split("0x6704fbfcd5ef766b287262fa2281c105d57246a60x000000000000000000000000000000000000000000000000000000000000014d", {from: owner});
+                    console.log(res);
+
+                    const resConvert = await this.token.convert.call(333, {from: owner});
+                    console.log(resConvert);
+                });
+            });
+        });
+    });
+
     after(async function () {
 
-        console.log('\n');
+        if (gasReport.length > 0) {
+            console.log('\n');
 
-        let table = new AsciiTable('WakERC20Token Gas Costs');
-        table.setHeading('function', 'gas price', 'gas user', 'gas cost');
+            let table = new AsciiTable('WakERC20Token Gas Costs');
+            table.setHeading('function', 'gas price', 'gas user', 'gas cost');
 
-        gasReport.forEach((gasTx) => {
-            table.addRow(gasTx.msg, `${weiToGwei(gasTx.gasPrice)} GWEI`, gasTx.gasUsed, `${weiToEther(gasTx.gasCost)} ETH`);
-        });
+            gasReport.forEach((gasTx) => {
+                table.addRow(gasTx.msg, `${weiToGwei(gasTx.gasPrice)} GWEI`, gasTx.gasUsed, `${weiToEther(gasTx.gasCost)} ETH`);
+            });
 
-        console.log(table.toString());
+            console.log(table.toString());
 
-        console.log('\n');
+            console.log('\n');
 
-        console.log(AsciiChart.plot(gasReport.map((gasTx) => gasTx.gasUsed), {height: 6}));
+            console.log(AsciiChart.plot(gasReport.map((gasTx) => gasTx.gasUsed), {height: 6}));
+        }
     });
 });
