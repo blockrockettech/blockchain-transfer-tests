@@ -55,8 +55,6 @@ Test is sending 1 asset, to 20 different accounts in a single transaction.
 * Results = [5697.706137001514], [2679.0476800203323], [4000.0358299613], [3683.633010983467], [2880.026881992817], 
 [6189.717738986015], [3649.631403028965], [3672.308954000473], [3311.3769469857216], [3800.43593198061] (_milliseconds_)
 
-5697 + 2679 + 4000 + 3683 + 2880 + 6189 + 3649 + 3672 + 3311 + 3800
-
 #### Opinions 
 
 * Cost: **For 10 transactions, each containing 20 operations = 200 OPS = 0.002 XLM = 0.0096 USD** (1 XLM = $0.21)
