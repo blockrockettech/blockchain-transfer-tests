@@ -1,4 +1,5 @@
 const weiToEther = require('./helpers/weiToEther');
+const weiToGwei = require('./helpers/weiToGwei');
 
 const WakERC20Token = artifacts.require('WakERC20Token');
 
@@ -189,7 +190,7 @@ contract('WakERC20Token', function (
         table.setHeading('function', 'gas price', 'gas user', 'gas cost');
 
         gasReport.forEach((gasTx) => {
-            table.addRow(gasTx.msg, `${gasTx.gasPrice} WEI`, gasTx.gasUsed, `${weiToEther(gasTx.gasCost)} ETH`);
+            table.addRow(gasTx.msg, `${weiToGwei(gasTx.gasPrice)} GWEI`, gasTx.gasUsed, `${weiToEther(gasTx.gasCost)} ETH`);
         });
 
         console.log(table.toString());

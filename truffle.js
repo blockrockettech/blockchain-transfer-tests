@@ -9,7 +9,7 @@ module.exports = {
         useColors: true,
         reporter: 'eth-gas-reporter',
         reporterOptions : {
-            currency: 'GBP',
+            currency: 'USD',
             gasPrice: 5
         }
     },
