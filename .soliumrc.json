@@ -3,7 +3,7 @@
   "plugins": ["security"],
   "rules": {
     "error-reason": "off",
-    "indentation": ["error", 2],
+    "indentation": "off",
     "max-len": ["warning", 79],
     "no-constant": ["error"],
     "no-empty-blocks": "off",
