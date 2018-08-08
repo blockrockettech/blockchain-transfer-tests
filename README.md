@@ -37,16 +37,8 @@ Simple, quick and dirty tests for gathering information on transfer blockchain a
 
 Sending a batch of [10] single transactions, [10] tests ran:
 
-[29406.010240018368] milliseconds.
-[29526.779772043228] milliseconds.
-[16902.48921096325] milliseconds.
-[28168.857064008713] milliseconds.
-[26407.937089025974] milliseconds.
-[29968.64904600382] milliseconds.
-[24758.33659297228] milliseconds.
-[22514.300498008728] milliseconds.
-[27960.556167006493] milliseconds.
-[34913.40477001667] milliseconds.
+* Results = [29406.010240018368], [29526.779772043228], [16902.48921096325], [28168.857064008713], [26407.937089025974], 
+[29968.64904600382], [24758.33659297228], [22514.300498008728], [27960.556167006493], [34913.40477001667] (_milliseconds_)
 
 * Cost: **For 100 transactions = 0.001 XLM = 0.0048 USD** (1 XLM = $0.21)
  
@@ -60,16 +52,8 @@ Stellar supports sending 20 operations in a single transaction.
 
 Test is sending 1 asset, to 20 different accounts in a single transaction.
 
-[5697.706137001514] milliseconds.
-[2679.0476800203323] milliseconds.
-[4000.0358299613] milliseconds.
-[3683.633010983467] milliseconds.
-[2880.026881992817] milliseconds.
-[6189.717738986015] milliseconds.
-[3649.631403028965] milliseconds.
-[3672.308954000473] milliseconds.
-[3311.3769469857216] milliseconds.
-[3800.43593198061] milliseconds.
+* Results = [5697.706137001514], [2679.0476800203323], [4000.0358299613], [3683.633010983467], [2880.026881992817], 
+[6189.717738986015], [3649.631403028965], [3672.308954000473], [3311.3769469857216], [3800.43593198061] (_milliseconds_)
 
 5697 + 2679 + 4000 + 3683 + 2880 + 6189 + 3649 + 3672 + 3311 + 3800
 
