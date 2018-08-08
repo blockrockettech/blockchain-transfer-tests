@@ -28,12 +28,13 @@ Simple, quick and dirty tests for gathering information on transfer blockchain a
 * Staking
 * Public / Private
 
-### Stellar test
+### Stellar tests
  
 - Issuer - http://testnet.stellarchain.io/address/GDKU4KVLSQZLNYWI262LCAUJA7E2C42WA3OR5HEBHE76QB5SFV6D65LB
 - Receiver - http://testnet.stellarchain.io/address/GAPASLMI6GMNV5KQCJNZJOPFAWWOFVUUI74WRROE5UFZH3M5VWNVY7ET
+- KIN has also published some test details here - https://medium.com/inside-kin/stellar-load-testing-results-for-the-kin-ecosystem-64c4d8676e69
 
-#### Individual Transactions
+##### Individual Transactions
 
 Sending a batch of [10] single transactions, [10] tests ran:
 
@@ -46,7 +47,7 @@ Sending a batch of [10] single transactions, [10] tests ran:
 
 * Open = **all transactions are viewable on the public chain**, see testnet links above.
 
-#### Batch transactions 
+##### Batch transactions 
 
 Stellar supports sending 20 operations in a single transaction.
 
@@ -55,15 +56,28 @@ Test is sending 1 asset, to 20 different accounts in a single transaction.
 * Results = [5697.706137001514], [2679.0476800203323], [4000.0358299613], [3683.633010983467], [2880.026881992817], 
 [6189.717738986015], [3649.631403028965], [3672.308954000473], [3311.3769469857216], [3800.43593198061] (_milliseconds_)
 
-#### Opinions 
-
 * Cost: **For 10 transactions, each containing 20 operations = 200 OPS = 0.002 XLM = 0.0096 USD** (1 XLM = $0.21)
 
 * Throughput: Approx [39560] milliseconds = [39.56] seconds = **[3.956] seconds on average for 20 operations* = [0.198] seconds a transaction*
 
 * Open = **all transactions are viewable on the public chain**, see testnet links above.
 
-#### Caveats
+##### Opinions
+
+* Reputation/usage
+    - Reputation is not as high as Ethereum but is growing due to low costs and high transaction fees
+    - Usage is also not as high as Ethereum bu is also grow.  
+    - 700k accounts (8th Aug 2018)
+    - Upto 1.1 million operations submitted as part of 350k transactions (as a peak daily throughput)
+    
+
+* Staking 
+    - staking could be achieved on chain by using a custom asset/address - by where user can stake by sending to a address which would need to manage the balances of those who have sent the assets.
+    - Voting for example could happen with a custom asset i.e a new asset is created of fixed supply, each voter receives an asset, the voter then sends to a specific address to tally up votes. 
+
+* Public/Private - Stellar is a public blockchain solution
+ 
+##### Caveats
 
 * Running Stellar on TestNet you are rate limited
 * Not running against owned/hosted stellar core & horizon nodes may reduce throughput
