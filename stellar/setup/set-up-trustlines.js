@@ -1,5 +1,5 @@
 const StellarSdk = require('stellar-sdk');
-const Accounts = require('./accounts');
+const Accounts = require('../accounts');
 
 StellarSdk.Network.useTestNetwork();
 

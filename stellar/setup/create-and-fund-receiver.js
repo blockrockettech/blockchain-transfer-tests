@@ -1,29 +1,29 @@
 const StellarSdk = require('stellar-sdk');
 const axios = require('axios');
-const Accounts = require('./accounts');
+const Accounts = require('../accounts');
 
 StellarSdk.Network.useTestNetwork();
 
 (async function () {
 
-    const ISSUER = "issuer";
+    const RECEIVER = "jimmy";
 
-    if (Accounts.exists(ISSUER)) {
+    if (Accounts.exists(RECEIVER)) {
         console.log("Account already created");
-        return Promise.resolve(Accounts.get(ISSUER));
+        return Promise.resolve(Accounts.get(RECEIVER));
     }
 
     // Create new keypair
     const pair = StellarSdk.Keypair.random();
 
-    console.log(`Creating account for [${ISSUER}] | secret = [${pair.secret()}] publicKey = [${pair.publicKey()}]`);
+    console.log(`Creating account for [${RECEIVER}] | secret = [${pair.secret()}] publicKey = [${pair.publicKey()}]`);
 
     // return both for testing purposes
     let account = {
         secretKey: pair.secret(),
         publicKey: pair.publicKey(),
     };
-    Accounts.set(ISSUER, account);
+    Accounts.set(RECEIVER, account);
 
     console.log(`FRIEND-BOT: Funding account with public key of [${account.publicKey}]`);
 
