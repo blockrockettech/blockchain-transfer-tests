@@ -2,8 +2,10 @@
 
 Simple, quick and dirty tests for gathering information on transfer blockchain assets between two parties.
 
-* Ethereum - ERC20 (based on OpenZeppelin implementation)
-* Stellar - Custom Asset
+* Ethereum
+  * [ERC20](https://theethereum.wiki/w/index.php/ERC20_Token_Standard) (based on [OpenZeppelin StandardToken implementation](https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/token/ERC20/StandardToken.sol))
+* Stellar 
+  * Custom Asset
 
 ### Tests
 
