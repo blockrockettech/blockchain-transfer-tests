@@ -21,34 +21,37 @@ const server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
 
     const issuer = await server.loadAccount(fromPublicKey);
 
+    const VOLUME = 10;
+
+    const tests = _.range(0, VOLUME);
+
     const before = performance.now();
 
-    let transaction = new StellarSdk.TransactionBuilder(issuer)
-        .addOperation(StellarSdk.Operation.payment({
-            destination: toPublicKey,
-            asset: new StellarSdk.Asset(ASSET_CODE, assetIssuerPublicKey),
-            amount: AMOUNT
-        }))
-        .build();
+    let promises = _.map(tests, () => {
 
-    transaction.sign(StellarSdk.Keypair.fromSecret(fromSecretKey));
+        let transaction = new StellarSdk.TransactionBuilder(issuer)
+            .addOperation(StellarSdk.Operation.payment({
+                destination: toPublicKey,
+                asset: new StellarSdk.Asset(ASSET_CODE, assetIssuerPublicKey),
+                amount: AMOUNT
+            }))
+            .build();
 
-    return server.submitTransaction(transaction)
-        .then((result) => {
+        transaction.sign(StellarSdk.Keypair.fromSecret(fromSecretKey));
 
+        return server.submitTransaction(transaction);
+    });
+
+    Promise.all(promises)
+        .then(() => {
             const after = performance.now();
 
-            console.log(`Sending single transaction [${ after - before}] milliseconds.`);
+            console.log(`Sending [${VOLUME}] transaction [${ after - before}] milliseconds.`);
 
             console.log(`Issuer - http://testnet.stellarchain.io/address/${fromPublicKey}`);
             console.log(`Receiver - http://testnet.stellarchain.io/address/${toPublicKey}`);
-
-            console.log(JSON.stringify(result, null, 4));
         })
         .catch((error) => {
-            const {status, data} = error.response;
-            console.log({status, data});
-
-            console.log(_.get(data, 'extras.result_codes'));
+            console.log(error);
         });
 })();
