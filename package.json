@@ -23,10 +23,11 @@
   },
   "homepage": "https://github.com/blockrockettech/eth-transfer-tests#readme",
   "dependencies": {
-    "stellar-sdk": "^0.10.1",
+    "ascii-table": "0.0.9",
     "axios": "0.18.0",
     "lodash": "4.17.1",
     "openzeppelin-solidity": "1.11.0",
+    "stellar-sdk": "^0.10.1",
     "truffle-hdwallet-provider": "0.0.6"
   },
   "devDependencies": {
