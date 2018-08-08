@@ -1,25 +1,27 @@
-
 const weiToEther = require('./helpers/weiToEther');
 
 const WakERC20Token = artifacts.require('WakERC20Token');
 
-const AsciiTable = require('ascii-table')
+const AsciiTable = require('ascii-table');
+const AsciiChart = require('asciichart');
 
-contract('WakERC20Token', function ([
-                                        _,
-                                        owner,
-                                        recipient,
-                                        account1,
-                                        account2,
-                                        account3,
-                                        account4,
-                                        account5,
-                                        account6,
-                                        account7,
-                                        account8,
-                                        account9,
-                                        account10
-                                    ]) {
+contract('WakERC20Token', function (
+    [
+        _,
+        owner,
+        recipient,
+        account1,
+        account2,
+        account3,
+        account4,
+        account5,
+        account6,
+        account7,
+        account8,
+        account9,
+        account10
+    ]
+) {
 
     const calculateGasCost = async (receipt) => {
         const tx = await web3.eth.getTransaction(receipt.tx);
@@ -46,7 +48,7 @@ contract('WakERC20Token', function ([
     });
 
     describe('transfer', function () {
-        describe('when the recipient is not the zero address', function () {
+        describe('when the recipient is valid', function () {
             const to = recipient;
 
             describe('when the sender has enough balance', function () {
@@ -78,13 +80,13 @@ contract('WakERC20Token', function ([
     });
 
     describe('transfer multiple', function () {
-        describe('when the recipient is not the zero address', function () {
+        describe('when the recipient is valid', function () {
             const to = recipient;
 
-            describe('when the sender has enough balance (single)', function () {
+            describe('when the sender has enough balance', function () {
                 const amount = 100;
 
-                it('transfers the requested amount', async function () {
+                it('single transfer of the requested amount', async function () {
                     const tx = await this.token.batchTransfer([to], [amount], {from: owner});
                     const txGas = await calculateGasCost(tx);
                     gasReport.push({msg: 'batchTransfer (1)', ...txGas});
@@ -107,7 +109,7 @@ contract('WakERC20Token', function ([
                 });
             });
 
-            describe('when the sender has enough balance (multiple - 10)', function () {
+            describe('when the sender has enough balance', function () {
                 const amount = 1;
                 const toAddresses = [
                     account1,
@@ -123,7 +125,7 @@ contract('WakERC20Token', function ([
                 ];
                 const amounts = toAddresses.map(() => amount);
 
-                it('transfers the requested amount', async function () {
+                it('batch transfers the requested amount  (multiple - 10)', async function () {
                     const tx = await this.token.batchTransfer(toAddresses, amounts, {from: owner});
                     const txGas = await calculateGasCost(tx);
                     gasReport.push({msg: 'batchTransfer (10)', ...txGas});
@@ -150,10 +152,36 @@ contract('WakERC20Token', function ([
 
                 });
             });
+
+            describe('when the sender has enough balance', function () {
+                const amount = 1;
+
+                const testDataRange = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+                testDataRange.forEach((val) => {
+                    const toAddresses = [...Array(val).keys()].map(() => account1);
+                    const amounts = toAddresses.map(() => amount);
+
+                    it(`batch transfers the requested amount to the same address ${val} times`, async function () {
+
+                        const tx = await this.token.batchTransfer(toAddresses, amounts, {from: owner});
+                        const txGas = await calculateGasCost(tx);
+                        gasReport.push({msg: `batchTransfer [single address] (${val})`, ...txGas});
+
+                        const senderBalance = await this.token.balanceOf(owner);
+                        assert.equal(senderBalance, initialBalance - (amount * toAddresses.length));
+
+                        toAddresses.forEach(async (account) => {
+                            const balance = await this.token.balanceOf(account);
+                            assert.equal(balance, amount * toAddresses.length);
+                        });
+                    });
+                });
+
+            });
         });
     });
 
-    after(async function() {
+    after(async function () {
 
         console.log('\n');
 
@@ -161,9 +189,13 @@ contract('WakERC20Token', function ([
         table.setHeading('function', 'gas price', 'gas user', 'gas cost');
 
         gasReport.forEach((gasTx) => {
-            table.addRow(gasTx.msg, gasTx.gasPrice, gasTx.gasUsed, `${weiToEther(gasTx.gasCost)} ETH`)
+            table.addRow(gasTx.msg, `${gasTx.gasPrice} WEI`, gasTx.gasUsed, `${weiToEther(gasTx.gasCost)} ETH`);
         });
 
-        console.log(table.toString())
+        console.log(table.toString());
+
+        console.log('\n');
+
+        console.log(AsciiChart.plot(gasReport.map((gasTx) => gasTx.gasUsed), {height: 6}));
     });
 });

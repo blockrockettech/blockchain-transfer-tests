@@ -23,7 +23,8 @@ module.exports = {
         development: {
             host: '127.0.0.1',
             port: 8545,
-            network_id: '*' // Match any network id
+            network_id: '*', // Match any network id,
+            gasPrice: 2000000000 // default = 100 gwei = 100000000000
         },
         ganache: {
             host: "127.0.0.1",
@@ -35,7 +36,8 @@ module.exports = {
         testrpc: {
             host: '127.0.0.1',
             port: 8545,
-            network_id: '*'
+            network_id: '*',
+            gasPrice: 2000000000 // default = 100 gwei = 100000000000
         },
         live: {
             provider: function () {

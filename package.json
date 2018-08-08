@@ -24,6 +24,7 @@
   "homepage": "https://github.com/blockrockettech/eth-transfer-tests#readme",
   "dependencies": {
     "ascii-table": "0.0.9",
+    "asciichart": "^1.5.7",
     "axios": "0.18.0",
     "lodash": "4.17.1",
     "openzeppelin-solidity": "1.11.0",
