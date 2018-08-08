@@ -23,20 +23,20 @@
   },
   "homepage": "https://github.com/blockrockettech/eth-transfer-tests#readme",
   "dependencies": {
-    "openzeppelin-solidity": "1.11.0"
+    "openzeppelin-solidity": "1.11.0",
+    "truffle-hdwallet-provider": "0.0.6"
   },
   "devDependencies": {
-    "ganache-cli": "^6.1.6",
     "chai": "^4.1.2",
     "chai-bignumber": "^2.0.2",
     "coveralls": "^3.0.1",
-    "dotenv": "^4.0.0",
     "ethereumjs-util": "^5.2.0",
     "ethjs-abi": "^0.2.1",
+    "ganache-cli": "^6.1.6",
     "solidity-coverage": "^0.5.4",
     "solium": "^1.1.8",
     "truffle": "^4.1.13",
-    "truffle-hdwallet-provider": "0.0.5",
+    "truffle-flattener": "^1.2.5",
     "web3-utils": "^1.0.0-beta.34"
   },
   "engines": {
