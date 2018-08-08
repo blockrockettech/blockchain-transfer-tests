@@ -26,12 +26,25 @@ Simple, quick and dirty tests for gathering information on transfer blockchain a
 * Staking
 * Public / Private
 
+### Stellar tests
 
-#### Results
+ - Issuer - http://testnet.stellarchain.io/address/GDKU4KVLSQZLNYWI262LCAUJA7E2C42WA3OR5HEBHE76QB5SFV6D65LB
+ - Receiver - http://testnet.stellarchain.io/address/GAPASLMI6GMNV5KQCJNZJOPFAWWOFVUUI74WRROE5UFZH3M5VWNVY7ET
 
-|#| Costs  | Throughout  | Openness  |
-|-|--------|-------------|-----------|
-|1|        |             |           |
-|2|        |             |           |
-|3|        |             |           |
-|4|        |             |           |
+Sending [10] transaction [10] times:
+
+[29406.010240018368] milliseconds.
+[29526.779772043228] milliseconds.
+[16902.48921096325] milliseconds.
+[28168.857064008713] milliseconds.
+[26407.937089025974] milliseconds.
+[29968.64904600382] milliseconds.
+[24758.33659297228] milliseconds.
+[22514.300498008728] milliseconds.
+[27960.556167006493] milliseconds.
+[34913.40477001667] milliseconds.
+
+
+29406 + 29526 + 16902 + 28168 + 26407 + 29968 + 24758 + 22514 + 27960 + 34913
+
+Approx [270522] milliseconds = [270.522] seconds = **[2.7] seconds on average for 10 transactions**
