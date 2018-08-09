@@ -130,6 +130,25 @@ Test is sending 1 asset, to 20 different accounts in a single transaction.
     *  90  | 5 GWEI    |  4634007 | 0.023170035 ETH | 8.39 USD |
     *  100 | 5 GWEI    |  5130167 | 0.025650835 ETH | 9.28 USD |
   
+```
+.--------------------------------------------------------------------------------------------------.
+|                          WakERC20Token Gas Costs (Batch (Split String))                          |
+|--------------------------------------------------------------------------------------------------|
+|                   function                   | gas price | gas user |    gas cost     | USD cost |
+|----------------------------------------------|-----------|----------|-----------------|----------|
+| batchTransferViaSplit [string, string] (10)  | 5 GWEI    |   548765 | 0.002743825 ETH | 0.99 USD |
+| batchTransferViaSplit [string, string] (20)  | 5 GWEI    |  1059136 | 0.00529568 ETH  | 1.92 USD |
+| batchTransferViaSplit [string, string] (30)  | 5 GWEI    |  1569589 | 0.007847945 ETH | 2.84 USD |
+| batchTransferViaSplit [string, string] (40)  | 5 GWEI    |  2080123 | 0.010400615 ETH | 3.76 USD |
+| batchTransferViaSplit [string, string] (50)  | 5 GWEI    |  2590875 | 0.012954375 ETH | 4.69 USD |
+| batchTransferViaSplit [string, string] (60)  | 5 GWEI    |  3101434 | 0.01550717 ETH  | 5.61 USD |
+| batchTransferViaSplit [string, string] (70)  | 5 GWEI    |  3612349 | 0.018061745 ETH | 6.54 USD |
+| batchTransferViaSplit [string, string] (80)  | 5 GWEI    |  4123068 | 0.02061534 ETH  | 7.46 USD |
+| batchTransferViaSplit [string, string] (90)  | 5 GWEI    |  4634007 | 0.023170035 ETH | 8.39 USD |
+| batchTransferViaSplit [string, string] (100) | 5 GWEI    |  5130167 | 0.025650835 ETH | 9.28 USD |
+'--------------------------------------------------------------------------------------------------'
+```  
+  
 ### Opinions
 
 * Reputation/usage

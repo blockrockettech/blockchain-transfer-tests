@@ -134,7 +134,7 @@ contract('WakERC20Token', function (
 
                 const tx = await this.token.batchTransfer(dynamicToAddresses, dynamicAmounts, {from: owner});
                 const txGas = await calculateGasCost(tx);
-                gasBatchReport.push({msg: `batchTransfer [single address] (${batchSize})`, ...txGas});
+                gasBatchReport.push({msg: `batchTransfer (${batchSize})`, ...txGas});
 
                 const senderBalance = await this.token.balanceOf(owner);
                 assert.equal(senderBalance, initialBalance - (amount * dynamicToAddresses.length));
@@ -159,7 +159,7 @@ contract('WakERC20Token', function (
             it(`should split and transfer to many [${val}]`, async function () {
                 const tx = await await this.token.batchTransferViaSplit(toAddresses, amounts, {from: owner});
                 const txGas = await calculateGasCost(tx);
-                gasBatchSplitReport.push({msg: `batchTransferViaSplit [string, string] (${val})`, ...txGas});
+                gasBatchSplitReport.push({msg: `batchTransferViaSplit (${val})`, ...txGas});
             });
         });
     });
