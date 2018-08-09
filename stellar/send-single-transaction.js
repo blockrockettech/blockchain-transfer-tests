@@ -21,7 +21,6 @@ const server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
 
     const issuer = await server.loadAccount(fromPublicKey);
 
-    const before = performance.now();
 
     let transaction = new StellarSdk.TransactionBuilder(issuer)
         .addOperation(StellarSdk.Operation.payment({
@@ -32,6 +31,8 @@ const server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
         .build();
 
     transaction.sign(StellarSdk.Keypair.fromSecret(fromSecretKey));
+
+    const before = performance.now();
 
     return server.submitTransaction(transaction)
         .then((result) => {
