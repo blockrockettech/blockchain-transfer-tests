@@ -182,19 +182,28 @@ contract('WakERC20Token', function (
         });
     });
 
-    describe.only('transfer string split', function () {
+    describe('transfer string split', function () {
         describe('when the recipient is valid', function () {
             const to = recipient;
 
-            describe('when the sender has enough balance', function () {
+            describe('split', function () {
                 const amount = 100;
 
                 it('test', async function () {
-                    const res = await this.token.split("0x6704fbfcd5ef766b287262fa2281c105d57246a60x000000000000000000000000000000000000000000000000000000000000014d", {from: owner});
+                    const res = await this.token.split("0x6704fbfcd5ef766b287262fa2281c105d57246a60x6704fbfcd5ef766b287262fa2281c105d57246a6", {from: owner});
                     console.log(res);
 
                     const resConvert = await this.token.convert.call(333, {from: owner});
                     console.log(resConvert);
+                });
+            });
+
+            describe('comma separated', function () {
+                const amount = 100;
+
+                it('test', async function () {
+                    const res = await this.token.chop("0x401cbf2194d35d078c0bcdae4bea42275483ab5f,0x401cbf2194d35d078c0bcdae4bea42275483ab5f", {from: owner});
+                    console.log(res);
                 });
             });
         });

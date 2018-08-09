@@ -32,11 +32,32 @@ contract WakERC20Token is StandardToken, DetailedERC20 {
         bytes memory strBytes = bytes(str);
 
         bytes memory addressRes = new bytes(42);
-        for(uint i = 0; i < 42; i++) {
+        for (uint i = 0; i < 42; i++) {
             addressRes[i] = strBytes[i];
         }
-        
+
         return (string(addressRes), "sss");
+    }
+
+    function chop(string str) constant returns (address[]) {
+        var s = str.toSlice();
+        var delim = ",".toSlice();
+        var parts = new address[](s.count(delim) + 1);
+        for (uint i = 0; i < parts.length; i++) {
+            parts[i] = address(stringToBytes32(s.split(delim).toString()));
+        }
+        return parts;
+    }
+
+    function stringToBytes32(string memory source) returns (bytes32 result) {
+        bytes memory tempEmptyStringTest = bytes(source);
+        if (tempEmptyStringTest.length == 0) {
+            return 0x0;
+        }
+
+        assembly {
+            result := mload(add(source, 32))
+        }
     }
 
     function convert(uint256 n) returns (bytes32) {

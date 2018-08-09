@@ -28,7 +28,7 @@ Simple, quick and dirty tests for gathering information on transfer blockchain a
 * Staking
 * Public / Private
 
-### Stellar tests
+## Stellar Test
  
 - Issuer - http://testnet.stellarchain.io/address/GDKU4KVLSQZLNYWI262LCAUJA7E2C42WA3OR5HEBHE76QB5SFV6D65LB
 - Receiver - http://testnet.stellarchain.io/address/GAPASLMI6GMNV5KQCJNZJOPFAWWOFVUUI74WRROE5UFZH3M5VWNVY7ET
@@ -81,3 +81,10 @@ Test is sending 1 asset, to 20 different accounts in a single transaction.
 
 * Running Stellar on TestNet you are rate limited
 * Not running against owned/hosted stellar core & horizon nodes may reduce throughput
+
+
+## Ethereum Test
+
+### Vanilla single address transfer
+
+- Standard ERC20 "out-of-the-box" transfer. 
