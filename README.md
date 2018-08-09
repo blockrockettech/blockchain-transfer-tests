@@ -167,6 +167,7 @@ The lightening protocol is being to the network with a slated 2018 roll out.
 * Ethereum Blockchain (applicable to all tests below)
   * Transaction throughput: All Ethereum transactions must provide a gas price and be accepted by a miner. "Safe" gas prices change due to network conditions. On the main net blocks are currently mined approx. every 15 seconds. With reasonable gas the transaction would expect to be mined within 0 - 3 minutes. 
   * Open and Transparent: All transactions are open and transparent to all on the blockchain and can be viewed using block explorers.
+  * A rate of 361.95 USD per ETH was used for USD calculations (based on approx. rate on 9th Aug 2018)
                       
 ### 1. Vanilla single address transfer
 
@@ -276,7 +277,7 @@ WakERC20Token Gas Costs (Batch (Split String))
 
 #### Scripts used:
 
-* Ethereum mocha tests ran via the truffle framework
+* Ethereum JavaScript mocha tests ran via the [Truffle](http://truffleframework.com) framework:
 
 1. Install [Node](https://nodejs.org/en/) v8.x or above
 
