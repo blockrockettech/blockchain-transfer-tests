@@ -39,9 +39,9 @@ Scenarios covered
 
 ## Stellarg
  
-- Issuer - http://testnet.stellarchain.io/address/GDKU4KVLSQZLNYWI262LCAUJA7E2C42WA3OR5HEBHE76QB5SFV6D65LB
-- Receiver - http://testnet.stellarchain.io/address/GAPASLMI6GMNV5KQCJNZJOPFAWWOFVUUI74WRROE5UFZH3M5VWNVY7ET
-- KIN has also published some test details here - https://medium.com/inside-kin/stellar-load-testing-results-for-the-kin-ecosystem-64c4d8676e69
+- Issuer - [GDKU4KVLSQZLNYWI262LCAUJA7E2C42WA3OR5HEBHE76QB5SFV6D65LB](http://testnet.stellarchain.io/address/GDKU4KVLSQZLNYWI262LCAUJA7E2C42WA3OR5HEBHE76QB5SFV6D65LB)
+- Receiver - [GAPASLMI6GMNV5KQCJNZJOPFAWWOFVUUI74WRROE5UFZH3M5VWNVY7ET](http://testnet.stellarchain.io/address/GAPASLMI6GMNV5KQCJNZJOPFAWWOFVUUI74WRROE5UFZH3M5VWNVY7ET)
+- KIN has also published some test details here - [stellar-load-testing-results-for-the-kin-ecosystem](https://medium.com/inside-kin/stellar-load-testing-results-for-the-kin-ecosystem-64c4d8676e69)
 - All tests run against Testnet which may not be as reliable or a fast as running your own Horizon & Core nodes and submitting transaction to mainnet
 - Open = **all transactions are viewable on the public chain**, see testnet links above.
 
