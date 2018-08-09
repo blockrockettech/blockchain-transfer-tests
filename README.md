@@ -7,18 +7,18 @@ Simple, quick and dirty tests for gathering information on transfer blockchain a
 * Stellar 
   * Custom Asset called `TestTx` issued by account [GDKU4KVLSQZLNYWI262LCAUJA7E2C42WA3OR5HEBHE76QB5SFV6D65LB](http://testnet.stellarchain.io/address/GDKU4KVLSQZLNYWI262LCAUJA7E2C42WA3OR5HEBHE76QB5SFV6D65LB)
 
-### Tests
+## Tests
 
 Scenarios covered
 
-* Ethereum
-    1. Single ERC20 `function transfer(address _to, uint256 _value)`
-    2. ERC20 batch transfer based on two arrays `function transfer(address[] _addressed, uint256[] _values)` 
-    3. ERC20 batch transfer based on two strings `function transfer(string _addressed, string _values)`
 * Stellar 
     1. Single `payment` operation between two parties
     2. Batching `payment` operations, each one in a separate transaction
     3. Batching `payment` operations in transactions containing the max of 20 ops per transaction
+* Ethereum
+    1. Single ERC20 `function transfer(address _to, uint256 _value)`
+    2. ERC20 batch transfer based on two arrays `function transfer(address[] _addressed, uint256[] _values)` 
+    3. ERC20 batch transfer based on two strings `function transfer(string _addressed, string _values)`
     
 ### Criteria
 
@@ -272,3 +272,23 @@ WakERC20Token Gas Costs (Batch (Split String))
     - Voting can be achieved via "smart-contracts" with bespoke logic
 
 * Public/Private - Ethereum is a public blockchain solution  
+
+
+## Scripts used:
+
+* Ethereum mocha tests ran via the truffle framework
+
+1. Install [Node](https://nodejs.org/en/) v8.x or above
+
+2. Install [Truffle](http://truffleframework.com):
+```
+npm install -g truffle
+```
+3. Install node modules for project:
+```
+npm install
+```
+8. Run the tests:
+```
+npm run test
+```
