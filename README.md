@@ -34,7 +34,7 @@ Simple, quick and dirty tests for gathering information on transfer blockchain a
 - Receiver - http://testnet.stellarchain.io/address/GAPASLMI6GMNV5KQCJNZJOPFAWWOFVUUI74WRROE5UFZH3M5VWNVY7ET
 - KIN has also published some test details here - https://medium.com/inside-kin/stellar-load-testing-results-for-the-kin-ecosystem-64c4d8676e69
 
-##### Individual Transactions
+#### Individual Transactions
 
 Sending a batch of [10] single transactions, [10] tests ran:
 
@@ -47,7 +47,7 @@ Sending a batch of [10] single transactions, [10] tests ran:
 
 * Open = **all transactions are viewable on the public chain**, see testnet links above.
 
-##### Batch transactions 
+#### Batch transactions 
 
 Stellar supports sending 20 operations in a single transaction.
 
@@ -62,7 +62,7 @@ Test is sending 1 asset, to 20 different accounts in a single transaction.
 
 * Open = **all transactions are viewable on the public chain**, see testnet links above.
 
-##### Opinions
+#### Opinions
 
 * Reputation/usage
     - Reputation is not as high as Ethereum but is growing due to low costs and high transaction fees
@@ -130,3 +130,15 @@ Test is sending 1 asset, to 20 different accounts in a single transaction.
     *  90  | 5 GWEI    |  4634007 | 0.023170035 ETH | 8.39 USD |
     *  100 | 5 GWEI    |  5130167 | 0.025650835 ETH | 9.28 USD |
   
+#### Opinions
+
+* Reputation/usage
+    - Ethereum is the most utilised Blockchain by transaction volume and adoption due to it's maturity and the ability to run "smart-contracts" upon it.
+    - X accounts (8th Aug 2018)
+    - Upto X million operations submitted
+    
+* Staking 
+    - Staking can be achieved via "smart-contracts" with bespoke logic
+    - Voting can be achieved via "smart-contracts" with bespoke logic
+
+* Public/Private - Ethereum is a public blockchain solution  
