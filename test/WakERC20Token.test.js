@@ -1,5 +1,6 @@
 const weiToEther = require('./helpers/weiToEther');
 const weiToGwei = require('./helpers/weiToGwei');
+const lodash = require('lodash');
 
 const WakERC20Token = artifacts.require('WakERC20Token');
 
@@ -23,17 +24,6 @@ contract('WakERC20Token', function (
         account10
     ]
 ) {
-
-    const calculateGasCost = async (receipt) => {
-        const tx = await web3.eth.getTransaction(receipt.tx);
-        const gasPrice = tx.gasPrice;
-        return {
-            gasPrice: gasPrice,
-            gasUsed: receipt.receipt.gasUsed,
-            gasCost: gasPrice.mul(receipt.receipt.gasUsed)
-        };
-    };
-
     const initialBalance = 100;
     const gasReport = [];
 
@@ -182,20 +172,19 @@ contract('WakERC20Token', function (
         });
     });
 
-    describe.only('transfer string split', function () {
-        describe('when the recipient is valid', function () {
-            const to = recipient;
+    describe('Batch transfer via string split', function () {
+        const amount = 1;
 
-            describe('when the sender has enough balance', function () {
-                const amount = 100;
+        const testDataRange = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
-                it('test', async function () {
-                    const res = await this.token.split("0x6704fbfcd5ef766b287262fa2281c105d57246a60x000000000000000000000000000000000000000000000000000000000000014d", {from: owner});
-                    console.log(res);
+        testDataRange.forEach((val) => {
+            const toAddresses = lodash.range(0, val).map(() => account1).join(',');
+            const amounts = lodash.range(0, val).map(() => amount).join(',');
 
-                    const resConvert = await this.token.convert.call(333, {from: owner});
-                    console.log(resConvert);
-                });
+            it(`should split and transfer to many [${val}]`, async function () {
+                const tx = await await this.token.batchTransferViaSplit(toAddresses, amounts, {from: owner});
+                const txGas = await calculateGasCost(tx);
+                gasReport.push({msg: `batchTransferViaSplit [string, string] (${val})`, ...txGas});
             });
         });
     });
@@ -216,7 +205,20 @@ contract('WakERC20Token', function (
 
             console.log('\n');
 
-            console.log(AsciiChart.plot(gasReport.map((gasTx) => gasTx.gasUsed), {height: 6}));
+            if (gasReport.length > 1) {
+                console.log(AsciiChart.plot(gasReport.map((gasTx) => gasTx.gasUsed), {height: 6}));
+            }
         }
     });
+
+    const calculateGasCost = async (receipt) => {
+        const tx = await web3.eth.getTransaction(receipt.tx);
+        const gasPrice = tx.gasPrice;
+        return {
+            gasPrice: gasPrice,
+            gasUsed: receipt.receipt.gasUsed,
+            gasCost: gasPrice.mul(receipt.receipt.gasUsed)
+        };
+    };
+
 });

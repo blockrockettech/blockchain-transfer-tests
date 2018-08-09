@@ -28,18 +28,62 @@ contract WakERC20Token is StandardToken, DetailedERC20 {
         }
     }
 
-    function split(string str) constant returns (string, string) {
-        bytes memory strBytes = bytes(str);
+    function batchTransferViaSplit(string addresses, string amounts) public returns (bool) {
+        var addressesSlice = addresses.toSlice();
+        var amountsSlice = amounts.toSlice();
 
-        bytes memory addressRes = new bytes(42);
-        for(uint i = 0; i < 42; i++) {
-            addressRes[i] = strBytes[i];
+        var delim = ",".toSlice();
+
+        var addressCount = addressesSlice.count(delim);
+        var amountCount = amountsSlice.count(delim);
+
+        require(addressCount == amountCount, "Incorrect number of deliminators");
+
+        var addressParts = new address[](addressCount + 1);
+        var amountsParts = new uint256[](amountCount + 1);
+
+        for (uint i = 0; i < addressParts.length; i++) {
+
+            string memory addStr = addressesSlice.split(delim).toString();
+            addressParts[i] = parseAddr(addStr);
+
+            string memory amountStr = amountsSlice.split(delim).toString();
+            amountsParts[i] = stringToUint(amountStr);
+
+            transfer(addressParts[i], amountsParts[i]);
         }
-        
-        return (string(addressRes), "sss");
+
+        return true;
     }
 
-    function convert(uint256 n) returns (bytes32) {
-        return bytes32(n);
+    function parseAddr(string _a) internal returns (address){
+        bytes memory tmp = bytes(_a);
+        uint160 iaddr = 0;
+        uint160 b1;
+        uint160 b2;
+        for (uint i = 2; i < 2 + 2 * 20; i += 2) {
+            iaddr *= 256;
+            b1 = uint160(tmp[i]);
+            b2 = uint160(tmp[i + 1]);
+            if ((b1 >= 97) && (b1 <= 102)) b1 -= 87;
+            else if ((b1 >= 48) && (b1 <= 57)) b1 -= 48;
+            if ((b2 >= 97) && (b2 <= 102)) b2 -= 87;
+            else if ((b2 >= 48) && (b2 <= 57)) b2 -= 48;
+            iaddr += (b1 * 16 + b2);
+        }
+        return address(iaddr);
     }
+
+    function stringToUint(string s) constant returns (uint result) {
+        bytes memory b = bytes(s);
+        uint i;
+        result = 0;
+        for (i = 0; i < b.length; i++) {
+            uint c = uint(b[i]);
+            if (c >= 48 && c <= 57) {
+                result = result * 10 + (c - 48);
+            }
+        }
+    }
+
 }
