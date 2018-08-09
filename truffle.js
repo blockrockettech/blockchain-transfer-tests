@@ -7,11 +7,11 @@ let mnemonic = require('./mnemonic');
 module.exports = {
     mocha: {
         useColors: true,
-        reporter: 'eth-gas-reporter',
-        reporterOptions : {
-            currency: 'USD',
-            gasPrice: 5
-        }
+        // reporter: 'eth-gas-reporter',
+        // reporterOptions : {
+        //     currency: 'USD',
+        //     gasPrice: 5
+        // }
     },
     solc: {
         optimizer: {
