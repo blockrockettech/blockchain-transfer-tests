@@ -28,7 +28,7 @@ Simple, quick and dirty tests for gathering information on transfer blockchain a
 * Staking
 * Public / Private
 
-### Stellar tests
+## Stellar Test
  
 - Issuer - http://testnet.stellarchain.io/address/GDKU4KVLSQZLNYWI262LCAUJA7E2C42WA3OR5HEBHE76QB5SFV6D65LB
 - Receiver - http://testnet.stellarchain.io/address/GAPASLMI6GMNV5KQCJNZJOPFAWWOFVUUI74WRROE5UFZH3M5VWNVY7ET
@@ -81,3 +81,27 @@ Test is sending 1 asset, to 20 different accounts in a single transaction.
 
 * Running Stellar on TestNet you are rate limited
 * Not running against owned/hosted stellar core & horizon nodes may reduce throughput
+
+
+## Ethereum Test
+
+### Vanilla single address transfer
+
+* Standard ERC20 "out-of-the-box" transfer
+  * This takes approx 36621 gas at a price of 5 gwei is 0.07 USD
+  
+* Batch transfer (send multiple addresses and values)
+   * Due to gas limit there is a finite number of iterations you can perform. This gas limit changes. At time of writing is was 7983268. Therefore you need to stay under this ceiling or risk the transaction failing.
+   * Locally, we could send (at a price of 5 gwei):
+     * 10 - 323332 gas | 0.00161666 ETH |
+     * 10 (single address) - 188332 | 0.00094166 ETH|
+     * 20 (single address) - 338815 | 0.001694075 ETH |
+     * 30 (single address) - 489299 | 0.002446495 ETH |
+     * 40 (single address) - 639785 | 0.003198925 ETH |
+     * 50 (single address) - 790273 | 0.003951365 ETH |
+     * 60 (single address) - 940762 | 0.00470381 ETH  |
+     * 70 (single address) - 1091253 | 0.005456265 ETH |
+     * 80 (single address) - 1241745 | 0.006208725 ETH |
+     * 90 (single address) - 1392239  | 0.006961195 ETH |
+     * 100 (single address) - 1527734 | 0.00763867 ETH  |
+  * These results when plotted show a linear increase in gas usage as the number of transactions increased   

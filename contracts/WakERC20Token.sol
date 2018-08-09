@@ -34,29 +34,21 @@ contract WakERC20Token is StandardToken, DetailedERC20 {
 
         var delim = ",".toSlice();
 
-        var addressCount = addressesSlice.count(delim);
-        var amountCount = amountsSlice.count(delim);
+        uint addressCount = addressesSlice.count(delim);
+        uint amountCount = amountsSlice.count(delim);
 
         require(addressCount == amountCount, "Incorrect number of deliminators");
 
-        var addressParts = new address[](addressCount + 1);
-        var amountsParts = new uint256[](amountCount + 1);
-
-        for (uint i = 0; i < addressParts.length; i++) {
-
+        for (uint i = 0; i < addressCount + 1; i++) {
             string memory addStr = addressesSlice.split(delim).toString();
-            addressParts[i] = parseAddr(addStr);
-
             string memory amountStr = amountsSlice.split(delim).toString();
-            amountsParts[i] = stringToUint(amountStr);
 
-            transfer(addressParts[i], amountsParts[i]);
+            transfer(parseAddr(addStr), stringToUint(amountStr));
         }
-
         return true;
     }
 
-    function parseAddr(string _a) internal returns (address){
+    function parseAddr(string _a) internal pure returns (address){
         bytes memory tmp = bytes(_a);
         uint160 iaddr = 0;
         uint160 b1;
@@ -74,7 +66,7 @@ contract WakERC20Token is StandardToken, DetailedERC20 {
         return address(iaddr);
     }
 
-    function stringToUint(string s) constant returns (uint result) {
+    function stringToUint(string s) internal pure returns  (uint result) {
         bytes memory b = bytes(s);
         uint i;
         result = 0;
@@ -85,5 +77,4 @@ contract WakERC20Token is StandardToken, DetailedERC20 {
             }
         }
     }
-
 }
