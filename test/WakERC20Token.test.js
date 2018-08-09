@@ -166,49 +166,48 @@ contract('WakERC20Token', function (
 
     after(async function () {
 
-        if (gasBatchReport.length > 0) {
-            console.log('\n');
+        console.log('\n');
 
-            const fx = 361.95;
+        const fx = 361.95;
 
-            let table = new AsciiTable('WakERC20Token Gas Costs (Basic)');
-            table.setHeading('function', 'gas price', 'gas user', 'gas cost', 'USD cost');
-            gasReport.forEach((gasTx) => {
-                table.addRow(gasTx.msg, `${weiToGwei(gasTx.gasPrice)} GWEI`, gasTx.gasUsed, `${weiToEther(gasTx.gasCost)} ETH`, `${(weiToEther(gasTx.gasCost) * fx).toFixed(2)} USD`);
-            });
-            console.log(table.toString());
-            console.log('\n');
+        let table = new AsciiTable('WakERC20Token Gas Costs (Basic)');
+        table.setHeading('function', 'gas price', 'gas user', 'gas cost', 'USD cost');
+        gasReport.forEach((gasTx) => {
+            table.addRow(gasTx.msg, `${weiToGwei(gasTx.gasPrice)} GWEI`, gasTx.gasUsed, `${weiToEther(gasTx.gasCost)} ETH`, `${(weiToEther(gasTx.gasCost) * fx).toFixed(2)} USD`);
+        });
+        console.log(table.toString());
+        console.log('\n');
 
-            let batchTable = new AsciiTable('WakERC20Token Gas Costs (Batch)');
-            batchTable.setHeading('function', 'gas price', 'gas user', 'gas cost', 'USD cost');
-            gasBatchReport.forEach((gasTx) => {
-                batchTable.addRow(gasTx.msg, `${weiToGwei(gasTx.gasPrice)} GWEI`, gasTx.gasUsed, `${weiToEther(gasTx.gasCost)} ETH`, `${(weiToEther(gasTx.gasCost) * fx).toFixed(2)} USD`);
-            });
+        let batchTable = new AsciiTable('WakERC20Token Gas Costs (Batch)');
+        batchTable.setHeading('function', 'gas price', 'gas user', 'gas cost', 'USD cost');
+        gasBatchReport.forEach((gasTx) => {
+            batchTable.addRow(gasTx.msg, `${weiToGwei(gasTx.gasPrice)} GWEI`, gasTx.gasUsed, `${weiToEther(gasTx.gasCost)} ETH`, `${(weiToEther(gasTx.gasCost) * fx).toFixed(2)} USD`);
+        });
 
-            console.log(batchTable.toString());
-            console.log('\n');
+        console.log(batchTable.toString());
+        console.log('\n');
 
-            let batchSplitTable = new AsciiTable('WakERC20Token Gas Costs (Batch (Split String))');
-            batchSplitTable.setHeading('function', 'gas price', 'gas user', 'gas cost', 'USD cost');
-            gasBatchSplitReport.forEach((gasTx) => {
-                batchSplitTable.addRow(gasTx.msg, `${weiToGwei(gasTx.gasPrice)} GWEI`, gasTx.gasUsed, `${weiToEther(gasTx.gasCost)} ETH`, `${(weiToEther(gasTx.gasCost) * fx).toFixed(2)} USD`);
-            });
+        let batchSplitTable = new AsciiTable('WakERC20Token Gas Costs (Batch (Split String))');
+        batchSplitTable.setHeading('function', 'gas price', 'gas user', 'gas cost', 'USD cost');
+        gasBatchSplitReport.forEach((gasTx) => {
+            batchSplitTable.addRow(gasTx.msg, `${weiToGwei(gasTx.gasPrice)} GWEI`, gasTx.gasUsed, `${weiToEther(gasTx.gasCost)} ETH`, `${(weiToEther(gasTx.gasCost) * fx).toFixed(2)} USD`);
+        });
 
-            console.log(batchSplitTable.toString());
-            console.log('\n');
+        console.log(batchSplitTable.toString());
+        console.log('\n');
 
-            console.log('WakERC20Token Gas Costs (Batch)');
-            if (gasBatchReport.length > 1) {
-                console.log(AsciiChart.plot(gasBatchReport.map((gasTx) => gasTx.gasUsed), {height: 6}));
-            }
-            console.log('\n');
-
-            console.log('WakERC20Token Gas Costs (Batch (Split String))');
-            if (gasBatchSplitReport.length > 1) {
-                console.log(AsciiChart.plot(gasBatchSplitReport.map((gasTx) => gasTx.gasUsed), {height: 6}));
-            }
-            console.log('\n');
+        console.log('WakERC20Token Gas Costs (Batch)');
+        if (gasBatchReport.length > 1) {
+            console.log(AsciiChart.plot(gasBatchReport.map((gasTx) => gasTx.gasUsed), {height: 6}));
         }
+        console.log('\n');
+
+        console.log('WakERC20Token Gas Costs (Batch (Split String))');
+        if (gasBatchSplitReport.length > 1) {
+            console.log(AsciiChart.plot(gasBatchSplitReport.map((gasTx) => gasTx.gasUsed), {height: 6}));
+        }
+        console.log('\n');
+
     });
 
     const calculateGasCost = async (receipt) => {
