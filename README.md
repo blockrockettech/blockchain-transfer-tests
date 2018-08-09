@@ -123,6 +123,17 @@ The lightening protocol is being to the network with a slated 2018 roll out.
 
 * Standard ERC20 "out-of-the-box" transfer
   * Cost: This takes approx 36621 gas at a price of 5 gwei is 0.07 USD
+```
+.------------------------------------------------------------------------.
+|                    WakERC20Token Gas Costs (Basic)                     |
+|------------------------------------------------------------------------|
+|      function      | gas price | gas user |    gas cost     | USD cost |
+|--------------------|-----------|----------|-----------------|----------|
+| transfer           | 5 GWEI    |    36599 | 0.000182995 ETH | 0.07 USD |
+| batchTransfer (1)  | 5 GWEI    |    52835 | 0.000264175 ETH | 0.10 USD |
+| batchTransfer (10) | 5 GWEI    |   323332 | 0.00161666 ETH  | 0.59 USD |
+'------------------------------------------------------------------------'
+```
      
 
 ### Batch transfer (via passed arrays)
@@ -130,55 +141,73 @@ The lightening protocol is being to the network with a slated 2018 roll out.
 * Batch transfer (send multiple addresses and values)
    * Due to gas limit there is a finite number of iterations you can perform. This gas limit is variable. At time of writing is was 7983268. Therefore you need to stay under this ceiling or risk the transaction failing.
    * Cost: Locally, we tested at a price of 5 gwei *Note: gas prices can be a LOT higher at times of network congestion*:
-     * 10 | 323332 gas | 0.00161666 ETH | 0.58 USD
-     * 10 | 188332 gas | 0.00094166 ETH | 0.34 USD
-     * 20 | 338815 gas | 0.001694075 ETH | 0.61 USD
-     * 30 | 489299 gas | 0.002446495 ETH | 0.89 USD
-     * 40 | 639785 gas | 0.003198925 ETH | 1.16 USD
-     * 50 | 790273 gas | 0.003951365 ETH | 1.43 USD
-     * 60 | 940762 gas | 0.00470381 ETH  | 1.70 USD
-     * 70 | 1091253 gas | 0.005456265 ETH | 1.97 USD
-     * 80 | 1241745 gas | 0.006208725 ETH | 2.25 USD
-     * 90 | 1392239  gas | 0.006961195 ETH | 2.52 USD
-     * 100 | 1527734 gas | 0.00763867 ETH  | 2.76 USD
+```
+.-------------------------------------------------------------------------.
+|                     WakERC20Token Gas Costs (Batch)                     |
+|-------------------------------------------------------------------------|
+|      function       | gas price | gas user |    gas cost     | USD cost |
+|---------------------|-----------|----------|-----------------|----------|
+| batchTransfer (10)  | 5 GWEI    |   188332 | 0.00094166 ETH  | 0.34 USD |
+| batchTransfer (20)  | 5 GWEI    |   338815 | 0.001694075 ETH | 0.61 USD |
+| batchTransfer (30)  | 5 GWEI    |   489299 | 0.002446495 ETH | 0.89 USD |
+| batchTransfer (40)  | 5 GWEI    |   639785 | 0.003198925 ETH | 1.16 USD |
+| batchTransfer (50)  | 5 GWEI    |   790273 | 0.003951365 ETH | 1.43 USD |
+| batchTransfer (60)  | 5 GWEI    |   940762 | 0.00470381 ETH  | 1.70 USD |
+| batchTransfer (70)  | 5 GWEI    |  1091253 | 0.005456265 ETH | 1.97 USD |
+| batchTransfer (80)  | 5 GWEI    |  1241745 | 0.006208725 ETH | 2.25 USD |
+| batchTransfer (90)  | 5 GWEI    |  1392239 | 0.006961195 ETH | 2.52 USD |
+| batchTransfer (100) | 5 GWEI    |  1527734 | 0.00763867 ETH  | 2.76 USD |
+'-------------------------------------------------------------------------'
+```  
   * These results when plotted show a linear increase in gas usage as the number of transactions increased
   * We proved the gas costs were consistent across environments by running some tests on Ropsten (test Ethereum blockchain) to ensure the numbers where consistent. [tx](https://ropsten.etherscan.io/tx/0xbf63f6760942ea37213b2c937d2369daa86dc0745df7cb495d376783c6f8d9af)    
+```
+WakERC20Token Gas Costs (Batch)
+ 1527734.00 ┤        ╭
+ 1304500.33 ┤      ╭─╯
+ 1081266.67 ┤     ╭╯
+  858033.00 ┤   ╭─╯
+  634799.33 ┤  ╭╯
+  411565.67 ┤╭─╯
+  188332.00 ┼╯
+```
 
 ### Batch transfer (via splitting strings)
 
 * Split string Batch transfer (send multiple addresses and values)
   * Due to gas limit there is a finite number of iterations you can perform. This gas limit is variable. At time of writing is was 7983268. Therefore you need to stay under this ceiling or risk the transaction failing.
   * Cost: Locally, we tested at a price of 5 gwei *Note: gas prices can be a LOT higher at times of network congestion*: 
-    *  10  | 5 GWEI    |   548765 | 0.002743825 ETH | 0.99 USD |
-    *  20  | 5 GWEI    |  1059136 | 0.00529568 ETH  | 1.92 USD |
-    *  30  | 5 GWEI    |  1569589 | 0.007847945 ETH | 2.84 USD |
-    *  40  | 5 GWEI    |  2080123 | 0.010400615 ETH | 3.76 USD |
-    *  50  | 5 GWEI    |  2590875 | 0.012954375 ETH | 4.69 USD |
-    *  60  | 5 GWEI    |  3101434 | 0.01550717 ETH  | 5.61 USD |
-    *  70  | 5 GWEI    |  3612349 | 0.018061745 ETH | 6.54 USD |
-    *  80  | 5 GWEI    |  4123068 | 0.02061534 ETH  | 7.46 USD |
-    *  90  | 5 GWEI    |  4634007 | 0.023170035 ETH | 8.39 USD |
-    *  100 | 5 GWEI    |  5130167 | 0.025650835 ETH | 9.28 USD |
-  
 ```
-.--------------------------------------------------------------------------------------------------.
-|                          WakERC20Token Gas Costs (Batch (Split String))                          |
-|--------------------------------------------------------------------------------------------------|
-|                   function                   | gas price | gas user |    gas cost     | USD cost |
-|----------------------------------------------|-----------|----------|-----------------|----------|
-| batchTransferViaSplit [string, string] (10)  | 5 GWEI    |   548765 | 0.002743825 ETH | 0.99 USD |
-| batchTransferViaSplit [string, string] (20)  | 5 GWEI    |  1059136 | 0.00529568 ETH  | 1.92 USD |
-| batchTransferViaSplit [string, string] (30)  | 5 GWEI    |  1569589 | 0.007847945 ETH | 2.84 USD |
-| batchTransferViaSplit [string, string] (40)  | 5 GWEI    |  2080123 | 0.010400615 ETH | 3.76 USD |
-| batchTransferViaSplit [string, string] (50)  | 5 GWEI    |  2590875 | 0.012954375 ETH | 4.69 USD |
-| batchTransferViaSplit [string, string] (60)  | 5 GWEI    |  3101434 | 0.01550717 ETH  | 5.61 USD |
-| batchTransferViaSplit [string, string] (70)  | 5 GWEI    |  3612349 | 0.018061745 ETH | 6.54 USD |
-| batchTransferViaSplit [string, string] (80)  | 5 GWEI    |  4123068 | 0.02061534 ETH  | 7.46 USD |
-| batchTransferViaSplit [string, string] (90)  | 5 GWEI    |  4634007 | 0.023170035 ETH | 8.39 USD |
-| batchTransferViaSplit [string, string] (100) | 5 GWEI    |  5130167 | 0.025650835 ETH | 9.28 USD |
-'--------------------------------------------------------------------------------------------------'
+.---------------------------------------------------------------------------------.
+|                 WakERC20Token Gas Costs (Batch (Split String))                  |
+|---------------------------------------------------------------------------------|
+|          function           | gas price | gas user |    gas cost     | USD cost |
+|-----------------------------|-----------|----------|-----------------|----------|
+| batchTransferViaSplit (10)  | 5 GWEI    |   548765 | 0.002743825 ETH | 0.99 USD |
+| batchTransferViaSplit (20)  | 5 GWEI    |  1059136 | 0.00529568 ETH  | 1.92 USD |
+| batchTransferViaSplit (30)  | 5 GWEI    |  1569589 | 0.007847945 ETH | 2.84 USD |
+| batchTransferViaSplit (40)  | 5 GWEI    |  2080123 | 0.010400615 ETH | 3.76 USD |
+| batchTransferViaSplit (50)  | 5 GWEI    |  2590875 | 0.012954375 ETH | 4.69 USD |
+| batchTransferViaSplit (60)  | 5 GWEI    |  3101434 | 0.01550717 ETH  | 5.61 USD |
+| batchTransferViaSplit (70)  | 5 GWEI    |  3612349 | 0.018061745 ETH | 6.54 USD |
+| batchTransferViaSplit (80)  | 5 GWEI    |  4123068 | 0.02061534 ETH  | 7.46 USD |
+| batchTransferViaSplit (90)  | 5 GWEI    |  4634007 | 0.023170035 ETH | 8.39 USD |
+| batchTransferViaSplit (100) | 5 GWEI    |  5130167 | 0.025650835 ETH | 9.28 USD |
+'---------------------------------------------------------------------------------'
 ```  
-  
+  * These results when plotted show a linear increase in gas usage as the number of transactions increased
+    * On average the simple splitting we perform was 3 times more expensive
+```
+WakERC20Token Gas Costs (Batch (Split String))
+ 5130167.00 ┤        ╭
+ 4366600.00 ┤       ╭╯
+ 3603033.00 ┤     ╭─╯
+ 2839466.00 ┤    ╭╯
+ 2075899.00 ┤  ╭─╯
+ 1312332.00 ┤ ╭╯
+  548765.00 ┼─╯
+
+```  
 ### Opinions
 
 * Reputation/usage
