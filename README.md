@@ -130,7 +130,7 @@ Test is sending 1 asset, to 20 different accounts in a single transaction.
     *  90  | 5 GWEI    |  4634007 | 0.023170035 ETH | 8.39 USD |
     *  100 | 5 GWEI    |  5130167 | 0.025650835 ETH | 9.28 USD |
   
-#### Opinions
+### Opinions
 
 * Reputation/usage
     - Ethereum is the most utilised Blockchain by transaction volume and adoption due to it's maturity and the ability to run "smart-contracts" upon it.
