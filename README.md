@@ -45,14 +45,14 @@ Scenarios covered
 - All tests run against Testnet which may not be as reliable or a fast as running your own Horizon & Core nodes and submitting transaction to mainnet
 - Open = **all transactions are viewable on the public chain**, see testnet links above.
 
-## Scripts used:
+#### Scripts used:
 
 * Manually invoked scripts within `./stellar`
 * Send single - `node ./stellar/sending-single-transaction.js`
 * Send batch, single transactions - `node ./stellar/send-10-transactions.js`
 * Send batch, multiple operation - `node ./stellar/send-batch-of-20-payments-in-one-transaction.js`
 
-#### 1. Single payment
+### 1. Single payment
 
 Sending a single payment operation in a single transaction.
 
@@ -80,7 +80,7 @@ Sending a single payment operation in a single transaction.
  
 * Throughput: Approx [39693] milliseconds = [39.693] seconds = **[3.96] seconds on average for 10 transactions**
 
-#### 2. Batch payments, singular transactions
+### 2. Batch payments, singular transactions
 
 Sending a batch of [10] single transactions, [10] tests ran:
 
@@ -108,7 +108,7 @@ Sending a batch of [10] single transactions, [10] tests ran:
  
 * Throughput: Approx [270522] milliseconds = [270.522] seconds = **[2.7] seconds on average for 10 transactions**
 
-#### 3. Batch payments, batch operations
+### 3. Batch payments, batch operations
 
 Stellar supports sending 20 operations in a single transaction.
 
@@ -168,7 +168,7 @@ The lightening protocol is being to the network with a slated 2018 roll out.
   * Transaction throughput: All Ethereum transactions must provide a gas price and be accepted by a miner. "Safe" gas prices change due to network conditions. On the main net blocks are currently mined approx. every 15 seconds. With reasonable gas the transaction would expect to be mined within 0 - 3 minutes. 
   * Open and Transparent: All transactions are open and transparent to all on the blockchain and can be viewed using block explorers.
                       
-### Vanilla single address transfer
+### 1. Vanilla single address transfer
 
 * Standard ERC20 "out-of-the-box" transfer
   * Cost: This takes approx 36621 gas at a price of 5 gwei is 0.07 USD
@@ -185,7 +185,7 @@ The lightening protocol is being to the network with a slated 2018 roll out.
 ```
      
 
-### Batch transfer (via passed arrays)
+### 2. Batch transfer (via passed arrays)
       
 * Batch transfer (send multiple addresses and values)
    * Due to gas limit there is a finite number of iterations you can perform. This gas limit is variable. At time of writing is was 7983268. Therefore you need to stay under this ceiling or risk the transaction failing.
@@ -221,7 +221,7 @@ WakERC20Token Gas Costs (Batch)
   188332.00 ┼╯
 ```
 
-### Batch transfer (via splitting strings)
+### 3. Batch transfer (via splitting strings)
 
 * Split string Batch transfer (send multiple addresses and values)
   * Due to gas limit there is a finite number of iterations you can perform. This gas limit is variable. At time of writing is was 7983268. Therefore you need to stay under this ceiling or risk the transaction failing.
@@ -257,7 +257,7 @@ WakERC20Token Gas Costs (Batch (Split String))
   548765.00 ┼─╯
 
 ```  
-### Opinions
+#### Opinions
 
 * Reputation/usage
     - Ethereum is the one of the most utilised Blockchain by usage and adoption due to it's maturity and the ability to run "smart-contracts" upon it.
@@ -274,7 +274,7 @@ WakERC20Token Gas Costs (Batch (Split String))
 * Public/Private - Ethereum is a public blockchain solution  
 
 
-## Scripts used:
+#### Scripts used:
 
 * Ethereum mocha tests ran via the truffle framework
 
