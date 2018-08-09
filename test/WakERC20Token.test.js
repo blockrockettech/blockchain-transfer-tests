@@ -195,10 +195,11 @@ contract('WakERC20Token', function (
             console.log('\n');
 
             let table = new AsciiTable('WakERC20Token Gas Costs');
-            table.setHeading('function', 'gas price', 'gas user', 'gas cost');
+            table.setHeading('function', 'gas price', 'gas user', 'gas cost', 'USD cost');
 
+            const fx = 361.95;
             gasReport.forEach((gasTx) => {
-                table.addRow(gasTx.msg, `${weiToGwei(gasTx.gasPrice)} GWEI`, gasTx.gasUsed, `${weiToEther(gasTx.gasCost)} ETH`);
+                table.addRow(gasTx.msg, `${weiToGwei(gasTx.gasPrice)} GWEI`, gasTx.gasUsed, `${weiToEther(gasTx.gasCost)} ETH`, `${(weiToEther(gasTx.gasCost) * fx).toFixed(2)} USD`);
             });
 
             console.log(table.toString());
