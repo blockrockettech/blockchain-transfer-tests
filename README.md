@@ -93,6 +93,9 @@ Test is sending 1 asset, to 20 different accounts in a single transaction.
 
 * Standard ERC20 "out-of-the-box" transfer
   * Cost: This takes approx 36621 gas at a price of 5 gwei is 0.07 USD
+     
+
+### Batch transfer (via passed arrays)
       
 * Batch transfer (send multiple addresses and values)
    * Due to gas limit there is a finite number of iterations you can perform. This gas limit is variable. At time of writing is was 7983268. Therefore you need to stay under this ceiling or risk the transaction failing.
@@ -110,6 +113,8 @@ Test is sending 1 asset, to 20 different accounts in a single transaction.
      * 100 | 1527734 gas | 0.00763867 ETH  | 2.76 USD
   * These results when plotted show a linear increase in gas usage as the number of transactions increased
   * We proved the gas costs were consistent across environments by running some tests on Ropsten (test Ethereum blockchain) to ensure the numbers where consistent. [tx](https://ropsten.etherscan.io/tx/0xbf63f6760942ea37213b2c937d2369daa86dc0745df7cb495d376783c6f8d9af)    
+
+### Batch transfer (via splitting strings)
 
 * Split string Batch transfer (send multiple addresses and values)
   * Due to gas limit there is a finite number of iterations you can perform. This gas limit is variable. At time of writing is was 7983268. Therefore you need to stay under this ceiling or risk the transaction failing.
