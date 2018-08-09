@@ -37,7 +37,7 @@ Scenarios covered
 * All accounts, public & private keys, are known to the application/test
 * All tests run against Stellar testnet, Ganache CLI and Ropsten testnet
 
-## Stellarg
+## Stellar
  
 - Issuer - [GDKU4KVLSQZLNYWI262LCAUJA7E2C42WA3OR5HEBHE76QB5SFV6D65LB](http://testnet.stellarchain.io/address/GDKU4KVLSQZLNYWI262LCAUJA7E2C42WA3OR5HEBHE76QB5SFV6D65LB)
 - Receiver - [GAPASLMI6GMNV5KQCJNZJOPFAWWOFVUUI74WRROE5UFZH3M5VWNVY7ET](http://testnet.stellarchain.io/address/GAPASLMI6GMNV5KQCJNZJOPFAWWOFVUUI74WRROE5UFZH3M5VWNVY7ET)
@@ -92,16 +92,20 @@ Test is sending 1 asset, to 20 different accounts in a single transaction.
 #### Opinions
 
 * Reputation/usage
-    - Reputation is not as high as Ethereum but is growing due to low costs and high transaction fees
-    - Usage is also not as high as Ethereum bu is also grow.  
-    - 700k accounts (8th Aug 2018)
+    - Reputation is not as high as Ethereum but is growing due to low costs and high transaction throughput.
+    - Usage is also not as high as Ethereum bu is also growing with daily operations submitted overtaking ethereum on some days. 
+    - 200k+ active accounts (8th Aug 2018)
     - Upto 1.1 million operations submitted as part of 350k transactions (as a peak daily throughput)
 
 * Staking 
-    - staking could be achieved on chain by using a custom asset/address - by where user can stake by sending to a address which would need to manage the balances of those who have sent the assets.
+    - Staking could be achieved on chain by using a custom asset/address - by where user can stake by sending to a address which would need to manage the balances of those who have sent the assets.
     - Voting for example could happen with a custom asset i.e a new asset is created of fixed supply, each voter receives an asset, the voter then sends to a specific address to tally up votes. 
 
 * Public/Private - Stellar is a public blockchain solution
+
+* Stellar is a much simpler Blockchain technology which focus on issuance and movement of assets. 
+Simple smart contract scan be derived but there is it does not provide a turning complete smart contract solution. 
+The lightening protocol is being to the network with a slated 2018 roll out.
  
 ##### Caveats
 
