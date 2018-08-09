@@ -29,10 +29,10 @@ contract WakERC20Token is StandardToken, DetailedERC20 {
     }
 
     function batchTransferViaSplit(string addresses, string amounts) public returns (bool) {
-        var addressesSlice = addresses.toSlice();
-        var amountsSlice = amounts.toSlice();
+        strings.slice memory addressesSlice = addresses.toSlice();
+        strings.slice memory amountsSlice = amounts.toSlice();
 
-        var delim = ",".toSlice();
+        strings.slice memory delim = ",".toSlice();
 
         uint addressCount = addressesSlice.count(delim);
         uint amountCount = amountsSlice.count(delim);

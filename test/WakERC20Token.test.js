@@ -40,136 +40,109 @@ contract('WakERC20Token', function (
         });
     });
 
-    describe('transfer', function () {
-        describe('when the recipient is valid', function () {
-            const to = recipient;
+    describe('basic transfer to single amount', function () {
 
-            describe('when the sender has enough balance', function () {
-                const amount = 100;
+        const to = recipient;
+        const amount = 100;
 
-                it('transfers the requested amount', async function () {
-                    const tx = await this.token.transfer(to, amount, {from: owner});
-                    const txGas = await calculateGasCost(tx);
-                    gasReport.push({msg: 'transfer', ...txGas});
+        it('transfers the requested amount', async function () {
+            const tx = await this.token.transfer(to, amount, {from: owner});
+            const txGas = await calculateGasCost(tx);
+            gasReport.push({msg: 'transfer', ...txGas});
 
-                    const senderBalance = await this.token.balanceOf(owner);
-                    assert.equal(senderBalance, 0);
+            const senderBalance = await this.token.balanceOf(owner);
+            assert.equal(senderBalance, 0);
 
-                    const recipientBalance = await this.token.balanceOf(to);
-                    assert.equal(recipientBalance, amount);
-                });
+            const recipientBalance = await this.token.balanceOf(to);
+            assert.equal(recipientBalance, amount);
 
-                it('emits a transfer event', async function () {
-                    const {logs} = await this.token.transfer(to, amount, {from: owner});
-
-                    assert.equal(logs.length, 1);
-                    assert.equal(logs[0].event, 'Transfer');
-                    assert.equal(logs[0].args.from, owner);
-                    assert.equal(logs[0].args.to, to);
-                    assert(logs[0].args.value.eq(amount));
-                });
-            });
+            const logs = tx.logs;
+            assert.equal(logs.length, 1);
+            assert.equal(logs[0].event, 'Transfer');
+            assert.equal(logs[0].args.from, owner);
+            assert.equal(logs[0].args.to, to);
+            assert(logs[0].args.value.eq(amount));
         });
     });
 
-    describe('transfer multiple', function () {
-        describe('when the recipient is valid', function () {
-            const to = recipient;
+    describe('batch transfer to multiple addresses', function () {
 
-            describe('when the sender has enough balance', function () {
-                const amount = 100;
+        const to = recipient;
+        const amount = 1;
 
-                it('single transfer of the requested amount', async function () {
-                    const tx = await this.token.batchTransfer([to], [amount], {from: owner});
-                    const txGas = await calculateGasCost(tx);
-                    gasReport.push({msg: 'batchTransfer (1)', ...txGas});
+        const batchToAddresses = [
+            account1,
+            account2,
+            account3,
+            account4,
+            account5,
+            account6,
+            account7,
+            account8,
+            account9,
+            account10
+        ];
+        const batchAmounts = batchToAddresses.map(() => amount);
 
-                    const senderBalance = await this.token.balanceOf(owner);
-                    assert.equal(senderBalance, 0);
+        it('should confirm with a single address batch', async function () {
+            const tx = await this.token.batchTransfer([to], [amount], {from: owner});
+            const txGas = await calculateGasCost(tx);
+            gasReport.push({msg: 'batchTransfer (1)', ...txGas});
 
-                    const recipientBalance = await this.token.balanceOf(to);
-                    assert.equal(recipientBalance, amount);
-                });
+            const senderBalance = await this.token.balanceOf(owner);
+            assert.equal(senderBalance, initialBalance - amount);
 
-                it('emits a transfer event', async function () {
-                    const {logs} = await this.token.batchTransfer([to], [amount], {from: owner});
+            const recipientBalance = await this.token.balanceOf(to);
+            assert.equal(recipientBalance, amount);
 
-                    assert.equal(logs.length, 1);
-                    assert.equal(logs[0].event, 'Transfer');
-                    assert.equal(logs[0].args.from, owner);
-                    assert.equal(logs[0].args.to, to);
-                    assert(logs[0].args.value.eq(amount));
-                });
+            const logs = tx.logs;
+            assert.equal(logs.length, 1);
+            assert.equal(logs[0].event, 'Transfer');
+            assert.equal(logs[0].args.from, owner);
+            assert.equal(logs[0].args.to, to);
+            assert(logs[0].args.value.eq(amount));
+        });
+
+        it('should confirm with a 10 address batch (mixed addresses)', async function () {
+            const tx = await this.token.batchTransfer(batchToAddresses, batchAmounts, {from: owner});
+            const txGas = await calculateGasCost(tx);
+            gasReport.push({msg: 'batchTransfer (10)', ...txGas});
+
+            const senderBalance = await this.token.balanceOf(owner);
+            assert.equal(senderBalance, initialBalance - (amount * batchToAddresses.length));
+
+            batchToAddresses.forEach(async (account) => {
+                const balance = await this.token.balanceOf(account);
+                assert.equal(balance, amount);
             });
 
-            describe('when the sender has enough balance', function () {
-                const amount = 1;
-                const toAddresses = [
-                    account1,
-                    account2,
-                    account3,
-                    account4,
-                    account5,
-                    account6,
-                    account7,
-                    account8,
-                    account9,
-                    account10
-                ];
-                const amounts = toAddresses.map(() => amount);
-
-                it('batch transfers the requested amount  (multiple - 10)', async function () {
-                    const tx = await this.token.batchTransfer(toAddresses, amounts, {from: owner});
-                    const txGas = await calculateGasCost(tx);
-                    gasReport.push({msg: 'batchTransfer (10)', ...txGas});
-
-                    const senderBalance = await this.token.balanceOf(owner);
-                    assert.equal(senderBalance, initialBalance - (amount * toAddresses.length));
-
-                    toAddresses.forEach(async (account) => {
-                        const balance = await this.token.balanceOf(account);
-                        assert.equal(balance, amount);
-                    });
-                });
-
-                it('emits a transfer event', async function () {
-                    const {logs} = await this.token.batchTransfer(toAddresses, amounts, {from: owner});
-
-                    assert.equal(logs.length, toAddresses.length);
-                    toAddresses.forEach(async (account, i) => {
-                        assert.equal(logs[i].event, 'Transfer');
-                        assert.equal(logs[i].args.from, owner);
-                        assert.equal(logs[i].args.to, account);
-                        assert(logs[i].args.value.eq(amount));
-                    });
-
-                });
+            const logs = tx.logs;
+            assert.equal(logs.length, batchToAddresses.length);
+            batchToAddresses.forEach(async (account, i) => {
+                assert.equal(logs[i].event, 'Transfer');
+                assert.equal(logs[i].args.from, owner);
+                assert.equal(logs[i].args.to, account);
+                assert(logs[i].args.value.eq(amount));
             });
+        });
 
-            describe('when the sender has enough balance', function () {
-                const amount = 1;
+        [10, 20, 30, 40, 50, 60, 70, 80, 90, 100].forEach((batchSize) => {
+            const dynamicToAddresses = [...Array(batchSize).keys()].map(() => account1);
+            const dynamicAmounts = dynamicToAddresses.map(() => amount);
 
-                const testDataRange = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
-                testDataRange.forEach((val) => {
-                    const toAddresses = [...Array(val).keys()].map(() => account1);
-                    const amounts = toAddresses.map(() => amount);
+            it(`should confirm with a ${batchSize} address batch (single address)`, async function () {
 
-                    it(`batch transfers the requested amount to the same address ${val} times`, async function () {
+                const tx = await this.token.batchTransfer(dynamicToAddresses, dynamicAmounts, {from: owner});
+                const txGas = await calculateGasCost(tx);
+                gasBatchReport.push({msg: `batchTransfer [single address] (${batchSize})`, ...txGas});
 
-                        const tx = await this.token.batchTransfer(toAddresses, amounts, {from: owner});
-                        const txGas = await calculateGasCost(tx);
-                        gasBatchReport.push({msg: `batchTransfer [single address] (${val})`, ...txGas});
+                const senderBalance = await this.token.balanceOf(owner);
+                assert.equal(senderBalance, initialBalance - (amount * dynamicToAddresses.length));
 
-                        const senderBalance = await this.token.balanceOf(owner);
-                        assert.equal(senderBalance, initialBalance - (amount * toAddresses.length));
-
-                        toAddresses.forEach(async (account) => {
-                            const balance = await this.token.balanceOf(account);
-                            assert.equal(balance, amount * toAddresses.length);
-                        });
-                    });
+                dynamicToAddresses.forEach(async (account) => {
+                    const balance = await this.token.balanceOf(account);
+                    assert.equal(balance, amount * dynamicToAddresses.length);
                 });
-
             });
         });
     });
