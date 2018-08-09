@@ -260,9 +260,12 @@ WakERC20Token Gas Costs (Batch (Split String))
 ### Opinions
 
 * Reputation/usage
-    - Ethereum is the most utilised Blockchain by transaction volume and adoption due to it's maturity and the ability to run "smart-contracts" upon it.
-    - X accounts (8th Aug 2018)
-    - Upto X million operations submitted
+    - Ethereum is the one of the most utilised Blockchain by usage and adoption due to it's maturity and the ability to run "smart-contracts" upon it.
+    - 581,703 transactions were processed on the 8th Aug 2018
+    
+    ![Tx Growth](./images/eth_tx_per_day.png)
+    
+    ![Unique Addresses](./images/unique_addresses.png)
     
 * Staking 
     - Staking can be achieved via "smart-contracts" with bespoke logic
