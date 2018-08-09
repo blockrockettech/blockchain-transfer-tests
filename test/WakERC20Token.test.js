@@ -26,6 +26,8 @@ contract('WakERC20Token', function (
 ) {
     const initialBalance = 100;
     const gasReport = [];
+    const gasBatchReport = [];
+    const gasBatchSplitReport = [];
 
     beforeEach(async function () {
         this.token = await WakERC20Token.new(owner, initialBalance);
@@ -156,7 +158,7 @@ contract('WakERC20Token', function (
 
                         const tx = await this.token.batchTransfer(toAddresses, amounts, {from: owner});
                         const txGas = await calculateGasCost(tx);
-                        gasReport.push({msg: `batchTransfer [single address] (${val})`, ...txGas});
+                        gasBatchReport.push({msg: `batchTransfer [single address] (${val})`, ...txGas});
 
                         const senderBalance = await this.token.balanceOf(owner);
                         assert.equal(senderBalance, initialBalance - (amount * toAddresses.length));
@@ -184,31 +186,55 @@ contract('WakERC20Token', function (
             it(`should split and transfer to many [${val}]`, async function () {
                 const tx = await await this.token.batchTransferViaSplit(toAddresses, amounts, {from: owner});
                 const txGas = await calculateGasCost(tx);
-                gasReport.push({msg: `batchTransferViaSplit [string, string] (${val})`, ...txGas});
+                gasBatchSplitReport.push({msg: `batchTransferViaSplit [string, string] (${val})`, ...txGas});
             });
         });
     });
 
     after(async function () {
 
-        if (gasReport.length > 0) {
+        if (gasBatchReport.length > 0) {
             console.log('\n');
 
-            let table = new AsciiTable('WakERC20Token Gas Costs');
-            table.setHeading('function', 'gas price', 'gas user', 'gas cost', 'USD cost');
-
             const fx = 361.95;
+
+            let table = new AsciiTable('WakERC20Token Gas Costs (Basic)');
+            table.setHeading('function', 'gas price', 'gas user', 'gas cost', 'USD cost');
             gasReport.forEach((gasTx) => {
                 table.addRow(gasTx.msg, `${weiToGwei(gasTx.gasPrice)} GWEI`, gasTx.gasUsed, `${weiToEther(gasTx.gasCost)} ETH`, `${(weiToEther(gasTx.gasCost) * fx).toFixed(2)} USD`);
             });
-
             console.log(table.toString());
-
             console.log('\n');
 
-            if (gasReport.length > 1) {
-                console.log(AsciiChart.plot(gasReport.map((gasTx) => gasTx.gasUsed), {height: 6}));
+            let batchTable = new AsciiTable('WakERC20Token Gas Costs (Batch)');
+            batchTable.setHeading('function', 'gas price', 'gas user', 'gas cost', 'USD cost');
+            gasBatchReport.forEach((gasTx) => {
+                batchTable.addRow(gasTx.msg, `${weiToGwei(gasTx.gasPrice)} GWEI`, gasTx.gasUsed, `${weiToEther(gasTx.gasCost)} ETH`, `${(weiToEther(gasTx.gasCost) * fx).toFixed(2)} USD`);
+            });
+
+            console.log(batchTable.toString());
+            console.log('\n');
+
+            let batchSplitTable = new AsciiTable('WakERC20Token Gas Costs (Batch (Split String))');
+            batchSplitTable.setHeading('function', 'gas price', 'gas user', 'gas cost', 'USD cost');
+            gasBatchSplitReport.forEach((gasTx) => {
+                batchSplitTable.addRow(gasTx.msg, `${weiToGwei(gasTx.gasPrice)} GWEI`, gasTx.gasUsed, `${weiToEther(gasTx.gasCost)} ETH`, `${(weiToEther(gasTx.gasCost) * fx).toFixed(2)} USD`);
+            });
+
+            console.log(batchSplitTable.toString());
+            console.log('\n');
+
+            console.log('WakERC20Token Gas Costs (Batch)');
+            if (gasBatchReport.length > 1) {
+                console.log(AsciiChart.plot(gasBatchReport.map((gasTx) => gasTx.gasUsed), {height: 6}));
             }
+            console.log('\n');
+
+            console.log('WakERC20Token Gas Costs (Batch (Split String))');
+            if (gasBatchSplitReport.length > 1) {
+                console.log(AsciiChart.plot(gasBatchSplitReport.map((gasTx) => gasTx.gasUsed), {height: 6}));
+            }
+            console.log('\n');
         }
     });
 
