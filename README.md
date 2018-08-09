@@ -85,24 +85,43 @@ Test is sending 1 asset, to 20 different accounts in a single transaction.
 
 ## Ethereum Test
 
+* Ethereum Blockchain (applicable to all tests below)
+  * Transaction throughput: All Ethereum transactions must provide a gas price and be accepted by a miner. "Safe" gas prices change due to network conditions. On the main net blocks are currently mined approx. every 15 seconds. With reasonable gas the transaction would expect to be mined within 0 - 3 minutes. 
+  * Open and Transparent: All transactions are open and transparent to all on the blockchain and can be viewed using block explorers.
+                      
 ### Vanilla single address transfer
 
 * Standard ERC20 "out-of-the-box" transfer
-  * This takes approx 36621 gas at a price of 5 gwei is 0.07 USD
-    
+  * Cost: This takes approx 36621 gas at a price of 5 gwei is 0.07 USD
+      
 * Batch transfer (send multiple addresses and values)
    * Due to gas limit there is a finite number of iterations you can perform. This gas limit is variable. At time of writing is was 7983268. Therefore you need to stay under this ceiling or risk the transaction failing.
-   * Locally, we could send (at a price of 5 gwei) *gas prices can be a LOT higher at times of network congestion*:
-     * 10 - 323332 gas | 0.00161666 ETH |
-     * 10 (single address) - 188332 gas | 0.00094166 ETH | 0.34 USD
-     * 20 (single address) - 338815 gas | 0.001694075 ETH | 0.61 USD
-     * 30 (single address) - 489299 gas | 0.002446495 ETH | 0.89 USD
-     * 40 (single address) - 639785 gas | 0.003198925 ETH | 1.16 USD
-     * 50 (single address) - 790273 gas | 0.003951365 ETH | 1.43 USD
-     * 60 (single address) - 940762 gas | 0.00470381 ETH  | 1.70 USD
-     * 70 (single address) - 1091253 gas | 0.005456265 ETH | 1.97 USD
-     * 80 (single address) - 1241745 gas | 0.006208725 ETH | 2.25 USD
-     * 90 (single address) - 1392239  gas | 0.006961195 ETH | 2.52 USD
-     * 100 (single address) - 1527734 gas | 0.00763867 ETH  | 2.76 USD
+   * Cost: Locally, we tested at a price of 5 gwei *Note: gas prices can be a LOT higher at times of network congestion*:
+     * 10 | 323332 gas | 0.00161666 ETH | 0.58 USD
+     * 10 | 188332 gas | 0.00094166 ETH | 0.34 USD
+     * 20 | 338815 gas | 0.001694075 ETH | 0.61 USD
+     * 30 | 489299 gas | 0.002446495 ETH | 0.89 USD
+     * 40 | 639785 gas | 0.003198925 ETH | 1.16 USD
+     * 50 | 790273 gas | 0.003951365 ETH | 1.43 USD
+     * 60 | 940762 gas | 0.00470381 ETH  | 1.70 USD
+     * 70 | 1091253 gas | 0.005456265 ETH | 1.97 USD
+     * 80 | 1241745 gas | 0.006208725 ETH | 2.25 USD
+     * 90 | 1392239  gas | 0.006961195 ETH | 2.52 USD
+     * 100 | 1527734 gas | 0.00763867 ETH  | 2.76 USD
   * These results when plotted show a linear increase in gas usage as the number of transactions increased
-  * We proved the gas costs were consistnet across environments by running some tests on Ropsten (test Ethereum blockchain) to ensure the numbers where consistent. [tx](https://ropsten.etherscan.io/tx/0xbf63f6760942ea37213b2c937d2369daa86dc0745df7cb495d376783c6f8d9af)    
+  * We proved the gas costs were consistent across environments by running some tests on Ropsten (test Ethereum blockchain) to ensure the numbers where consistent. [tx](https://ropsten.etherscan.io/tx/0xbf63f6760942ea37213b2c937d2369daa86dc0745df7cb495d376783c6f8d9af)    
+
+* Split string Batch transfer (send multiple addresses and values)
+  * Due to gas limit there is a finite number of iterations you can perform. This gas limit is variable. At time of writing is was 7983268. Therefore you need to stay under this ceiling or risk the transaction failing.
+  * Cost: Locally, we tested at a price of 5 gwei *Note: gas prices can be a LOT higher at times of network congestion*: 
+    *  10  | 5 GWEI    |   548765 | 0.002743825 ETH | 0.99 USD |
+    *  20  | 5 GWEI    |  1059136 | 0.00529568 ETH  | 1.92 USD |
+    *  30  | 5 GWEI    |  1569589 | 0.007847945 ETH | 2.84 USD |
+    *  40  | 5 GWEI    |  2080123 | 0.010400615 ETH | 3.76 USD |
+    *  50  | 5 GWEI    |  2590875 | 0.012954375 ETH | 4.69 USD |
+    *  60  | 5 GWEI    |  3101434 | 0.01550717 ETH  | 5.61 USD |
+    *  70  | 5 GWEI    |  3612349 | 0.018061745 ETH | 6.54 USD |
+    *  80  | 5 GWEI    |  4123068 | 0.02061534 ETH  | 7.46 USD |
+    *  90  | 5 GWEI    |  4634007 | 0.023170035 ETH | 8.39 USD |
+    *  100 | 5 GWEI    |  5130167 | 0.025650835 ETH | 9.28 USD |
+  
